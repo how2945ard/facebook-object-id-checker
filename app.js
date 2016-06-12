@@ -62,6 +62,12 @@ var idCacher = () => redisGetFbId()
     }
   })
   .catch((error) => {
+    if (
+      error.message === '(#17) User request limit reached' ||
+      error.code === '17'
+    ) {
+      return process.exit(0)
+    }
     console.error(error)
   })
 
