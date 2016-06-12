@@ -33,7 +33,7 @@ var options = {
     connection: "keep-alive"
   }
 };
-var token = 'EAACEdEose0cBAMPCKgbk2cskYJGGPTWGmGsda04ZBWaJ6SnLvwDLgxPF8tf5HjCMMZBfPRBTwCZCFbXCa4axEsw80oXcdObR2QtvScB9KUTe3xNWJOSuFj6YOqtXGImkuy6KmXP0JyzihruIg4amDVfepvInZCoQWdfB7QZAMmAZDZD';
+var token = 'EAACEdEose0cBAFBPyHoBmu0v82xvLq28nib4e1jbQ5PeNt6t4slZCmuwIAVDRqTMMZBEwe9ARtm0FwMOs6RJWYkZC0vWMz8zsQHH8XRp9KZBFvWkzAW4aZBjmYh8Uqpomow2dgPQfr7Ie6S3eNStCY98tOmNnL3A2lOkj9iRMTgZDZD';
 
 // var ID = 526382450745876;
 // redisClient
@@ -53,7 +53,13 @@ graph
 var idCacher = () => redisGetFbId()
   .then((id) => graph.getAsync(id + ''))
   .then((message) => {
-    console.log(message)
+    if (!message.application) {
+      console.log()
+      console.log(message.created_time)
+      console.log(message.link)
+      console.log(message.url)
+      console.log()
+    }
   })
   .catch((error) => {
     console.error(error)
