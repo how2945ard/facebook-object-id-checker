@@ -40,11 +40,11 @@ var token = 'EAACEdEose0cBAMPCKgbk2cskYJGGPTWGmGsda04ZBWaJ6SnLvwDLgxPF8tf5HjCMMZ
 //   .set('fb-id', ID + '')
 
 var redisGetFbId = () => redisClient
+  .multi()
   .get('fb-id')
-  // .then(value => value[0][1])
-
-var redisIncrFbId = () => redisClient
   .incr('fb-id')
+  .exec()
+  .then(value => value[0][1])
 
 graph
   .setAccessToken(token)
@@ -58,7 +58,5 @@ var idCacher = () => redisGetFbId()
   .catch((error) => {
     console.error(error)
   })
-  .then(redisIncrFbId)
-
 
 promiseWhile(() => true, idCacher)
